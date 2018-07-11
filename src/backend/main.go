@@ -83,7 +83,7 @@ func readCSVData() {
 			row = fmt.Sprintf("%s\nsteps value=%f %s", row, dataRow.Steps, finishTimeString)
 		}
 		if dataRow.TotalFat != 0 {
-			row = fmt.Sprintf("%s\nsteps value=%f %s", row, dataRow.TotalFat, finishTimeString)
+			row = fmt.Sprintf("%s\ntotal_fat value=%f %s", row, dataRow.TotalFat, finishTimeString)
 		}
 		if dataRow.Weight != 0 {
 			row = fmt.Sprintf("%s\nweight value=%f %s", row, (dataRow.Weight / 2.2), finishTimeString)
