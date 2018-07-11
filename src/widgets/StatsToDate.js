@@ -1,7 +1,8 @@
 import React from 'react';
 import { InfluxDBHandler } from '../db/influx';
 import axios from 'axios';
-
+import {Card} from '@material-ui/core/Card';
+import SimpleCard from './SimpleCard'
 class StatsToDate extends React.Component{
 
     constructor(props){
@@ -13,19 +14,15 @@ class StatsToDate extends React.Component{
             TotalWeightLoss: 0
         }
 
+        console.log(this.props)
         const InfluxDB = new InfluxDBHandler();
-
-    
 
         // Fetch Steps Data
         InfluxDB.fetchData('steps', this.props.epoch, '1d').then(d => {
-            
             this.setState({
             ...this.state,
             totalSteps: d.reduce((a,v) => a += v.value, 0).toFixed(2)
-        })
-    
-        });
+        })});
 
         // Fetch Weight Data
         InfluxDB.fetchData('weight', this.props.epoch, '1d').then(d => this.setState({
@@ -39,22 +36,17 @@ class StatsToDate extends React.Component{
             totalCalories: d.reduce((a,v) => a += v.value, 0).toFixed(2)
         }));
 
-
     }
-
-
-
     render(){
         return (
-            <div>
-                <h1>Test</h1>
-                <h1>Steps: {this.state.totalSteps}</h1>
-                <h1>Calories: {this.state.totalCalories}</h1>
-                <h1>Weight: {this.state.TotalWeightLoss}</h1>
-            </div>
+            <SimpleCard 
+                steps={this.state.totalSteps} 
+                totalCalories={this.state.totalCalories}
+                weight={this.state.weight}
+                title={this.props.title}
+                />
         );
     }
-
 }
 
 export default StatsToDate;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ActivityChart from './charts/ActivityChart';
 import StatsToDate from './widgets/StatsToDate';
+import Grid from '@material-ui/core/Grid'
 class App extends Component {
   
   getEpochFromNow = () => ((new Date).getTime()) - ((365 * 3600 * 24) * 1000) 
@@ -21,11 +22,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
-      <div className="Header">
-      <StatsToDate epoch={this.state.startOfYearEpoch}/>
-      <StatsToDate epoch={this.state.startOfMonthEpoch}/>
-      </div>
+        <div className="Header">
+          <Grid container className="HeaderGrid" spacing={16}>
+            <Grid item xs={12}>
+              <Grid container className="HederContainer" justify="center" spacing={32}>
+                <Grid item>
+                  <StatsToDate title="Year to Date" epoch={this.state.startOfYearEpoch}/>
+                </Grid>
+                <Grid item>
+                  <StatsToDate title="Month to Date" epoch={this.state.startOfMonthEpoch}/>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
       </div>
     );
   }
