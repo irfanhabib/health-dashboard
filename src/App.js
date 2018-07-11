@@ -3,6 +3,7 @@ import './App.css';
 import ActivityChart from './charts/ActivityChart';
 import StatsToDate from './widgets/StatsToDate';
 import Grid from '@material-ui/core/Grid'
+import FitnessCalendar from './widgets/FitnessCalendar'
 class App extends Component {
   
   getEpochFromNow = () => ((new Date).getTime()) - ((365 * 3600 * 24) * 1000) 
@@ -27,6 +28,9 @@ class App extends Component {
             <Grid item xs={12}>
               <Grid container className="HederContainer" justify="center" spacing={32}>
                 <Grid item>
+                  <StatsToDate title="Historic Data" epoch={0}/>
+                </Grid>
+                <Grid item>
                   <StatsToDate title="Year to Date" epoch={this.state.startOfYearEpoch}/>
                 </Grid>
                 <Grid item>
@@ -35,6 +39,9 @@ class App extends Component {
               </Grid>
             </Grid>
           </Grid>
+        </div>
+        <div className="Body">
+          <FitnessCalendar/>
         </div>
       </div>
     );
