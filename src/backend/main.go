@@ -38,7 +38,6 @@ func readCSVData() {
 
 	reader := csv.NewReader(bufio.NewReader(csvFile))
 	// var dataPoints []DataRow
-	longForm := "02-Jan-2006 03:04"
 	for {
 		line, error := reader.Read()
 		if error == io.EOF {
@@ -53,8 +52,8 @@ func readCSVData() {
 		steps, _ := strconv.ParseFloat(line[5], 10)
 		totalFat, _ := strconv.ParseFloat(line[6], 10)
 		weight, _ := strconv.ParseFloat(line[7], 10)
-		startTime, _ := time.Parse(longForm, line[0])
-		finishTime, _ := time.Parse(longForm, line[1])
+		startTime := parseTime(line[0])
+		finishTime := parseTime(line[1])
 		dataRow := DataRow{
 			Start:          startTime,
 			Finish:         finishTime,
@@ -66,6 +65,7 @@ func readCSVData() {
 			Weight:         weight,
 		}
 		row := ""
+		fmt.Printf("Processing %s\n", dataRow.Finish.String())
 		finishTimeString := strconv.FormatInt(dataRow.Finish.UnixNano(), 10)
 		if finishTimeString == "-6795364578871345152" {
 			continue
@@ -96,8 +96,46 @@ func readCSVData() {
 		if err != nil {
 			fmt.Printf("Failed to write line %s\n", err)
 		}
-		w.Flush()
 	}
+	w.Flush()
+	exportFile.Close()
+}
+
+func parseTime(timeString string) time.Time {
+	//"01-Jan-2014 13:00"
+	year, _ := strconv.Atoi(timeString[7:11])
+	month := time.January
+	switch mth := timeString[3:6]; mth {
+	case "Jan":
+		month = time.January
+	case "Feb":
+		month = time.February
+	case "Mar":
+		month = time.March
+	case "Apr":
+		month = time.April
+	case "May":
+		month = time.May
+	case "Jun":
+		month = time.June
+	case "Jul":
+		month = time.July
+	case "Aug":
+		month = time.August
+	case "Sep":
+		month = time.September
+	case "Oct":
+		month = time.October
+	case "Nov":
+		month = time.November
+	case "Dec":
+		month = time.December
+	}
+	day, _ := strconv.Atoi(timeString[0:2])
+	hour, _ := strconv.Atoi(timeString[12:14])
+	utc, _ := time.LoadLocation("UTC")
+	return time.Date(year, month, day, hour, 0, 0, 0, utc)
+
 }
 
 func main() {
