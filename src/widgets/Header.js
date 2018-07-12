@@ -43,7 +43,7 @@ class Header extends React.Component {
                     <ActivityChart metric="steps"epoch={this.state.startOfMonthEpoch} duration='1d' type='bar'/>
                   </Grid>
                   <Grid item>
-                    <ActivityChart metric="heart_rate"epoch={this.state.startOfMonthEpoch} duration='1d' type='line' operator='mean'/>
+                    <ActivityChart metric="heart_rate"epoch={this.state.startOfMonthEpoch} duration='1d' type='line' operator={['mean','max','min']}/>
                   </Grid>
                 </Grid>
               </Grid>
