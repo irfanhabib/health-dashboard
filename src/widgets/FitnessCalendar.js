@@ -21,7 +21,9 @@ class FitnessCalendar extends React.Component{
 
     render(){
        return(
-        <Calendar tileContent={this.customTileContent}/>
+        <div className="calendar">
+            <Calendar tileContent={this.customTileContent}/>
+        </div>
          )
   }
 }

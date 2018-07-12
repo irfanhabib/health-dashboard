@@ -1,3 +1,15 @@
 .red-background {
     background-color: red;
 }
+
+.calendar{
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    display: flex;
+    width: 100%;
+}
+
+.react-calendar{
+    width: 100%;
+}

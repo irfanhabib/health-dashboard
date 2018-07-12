@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import MetricValue from './MetricValue';
 
 const styles = {
   card: {
@@ -36,13 +37,13 @@ function SimpleCard(props) {
       <CardHeader title={props.title}/>
         <CardContent>
           <Typography variant="headline" component="h2">
-            Steps: {props.steps}
+            <MetricValue metricName="Steps" metricValue={props.steps} decimal={false}/>
           </Typography>
           <Typography variant="headline" component="h2">
-            Total Exercise Calories: {props.totalCalories}
+            <MetricValue metricName="Exercise Calories" decimal={false} metricValue={props.totalCalories}/>
           </Typography>
           <Typography variant="headline" component="h2">
-            Weight:  {props.weight}
+           <MetricValue metricName="Weight" metricValue={props.weight}/>
           </Typography>
         </CardContent>
       </Card>

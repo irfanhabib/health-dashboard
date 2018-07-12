@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid'
 import FitnessCalendar from './FitnessCalendar'
+import './EpochView.css';
 
 class EpochView extends React.Component{
 
@@ -11,7 +12,7 @@ class EpochView extends React.Component{
     }
     render(){
        return (
-        <div >
+        <div className="epoch-view">
         <Grid container>
           <Grid item xs={12}>
             <Grid container>

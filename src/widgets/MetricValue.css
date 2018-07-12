@@ -1,0 +1,16 @@
+.metric-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.metric-value__key{
+    flex: 1;
+    align-content: flex-start;
+    padding-right: 12px;
+}
+
+.metric-value__vale{
+    flex: 1;
+    align-content: flex-end;
+}
