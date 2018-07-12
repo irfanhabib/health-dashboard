@@ -1,3 +1,16 @@
  .Header {
     padding-top: 24px;
   }
+
+  .body {
+    flexGrow: 1;
+    backgroundColor: white;
+    padding: 10px;
+  }
+
+.app{
+}
+.app__body {
+  display: flex;
+
+}

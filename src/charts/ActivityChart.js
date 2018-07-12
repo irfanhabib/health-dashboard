@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { XAxis, LineChart, CartesianGrid, Line, Tooltip } from 'recharts';
+import { XAxis, LineChart, Bar, YAxis, Legend, BarChart, CartesianGrid, Line, Tooltip } from 'recharts';
 import { InfluxDBHandler } from '../db/influx';
+import PropTypes from 'prop-types';
 
 class ActivityChart extends Component {
   constructor(props){
@@ -9,32 +10,66 @@ class ActivityChart extends Component {
       data : []
     }
 
-    this.fetchData = this.fetchData.bind(this);
-    console.log(this.props)
-    const InfluxDB = new InfluxDBHandler();
+    this.renderBarChart = this.renderBarChart.bind(this);
 
-    InfluxDB.fetchData().then(data => this.setState({
-     data: data
-    }));
-    // console.log(http://localhost:8086/api/query?db=healthdata&u=admin&p=changeme&q=SELECT%20mean(%22value%22)%20FROM%20%22steps%22%20WHERE%20time%20%3E%3D%201499764517941ms%20GROUP%20BY%20time(1h)%20fill(null)&epoch=ms)
+    const InfluxDB = new InfluxDBHandler();
+    InfluxDB.fetchData(this.props.metric, this.props.epoch, this.props.duration, this.props.operator ? this.props.operator : 'sum').then(d => {
+      this.setState(
+        {
+          data: d.map(e => {
+            let obj = {}
+            let date = new Date(e.time);
+            obj['Date'] = `${date.getDate()}/${date.getMonth()}`;
+            obj[this.props.metric] = e.value
+            return obj;
+          })
+        }
+      );
+  });
+
   }
 
   render() {
-    console.log('CAlled render')
+    if (this.props.type === 'bar'){
+      return this.renderBarChart();
+    } else if (this.props.type === 'line'){
+      return this.renderLineChart();
+    }
+  }
+
+  renderLineChart() {
     return (
-        <LineChart
-        width={800}
-        height={400}
-        data={this.state.data}
-        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-        >
-        <XAxis dataKey="time" />
+    <LineChart width={730} height={250} data={this.state.data}
+      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="Date" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey={this.props.metric} stroke="#82ca9d" />
+    </LineChart>
+      );
+  }
+
+  renderBarChart() {
+    return (
+      <BarChart width={730} height={250} data={this.state.data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="Date" />
+        <YAxis />
         <Tooltip />
-        <CartesianGrid stroke="#f5f5f5" />
-        <Line type="monotone" dataKey="step" stroke="#ff7300" yAxisId={0} />
-        </LineChart>
-    );
+        <Legend />
+        <Bar dataKey={this.props.metric} fill="#82ca9d" />
+      </BarChart>
+      );
   }
 }
 
+ActivityChart.propTypes = {
+  metric: PropTypes.string.isRequired,
+  epoch: PropTypes.number.isRequired,
+  duration: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  operator: PropTypes.string
+}
 export default ActivityChart;
