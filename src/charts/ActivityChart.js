@@ -81,7 +81,7 @@ class ActivityChart extends Component {
 
     return (
       <Card className={classes.card}>
-        <CardHeader title="Chart"/>
+        <CardHeader title={this.props.title}/>
         <CardContent>
           {chart}
         </CardContent>

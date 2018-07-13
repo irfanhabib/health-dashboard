@@ -13,13 +13,13 @@ class ActivityCharts extends React.Component{
     return (
         <Grid container className="activity-charts" justify="center" spacing={32}>
         <Grid item>
-          <ActivityChart metric="active_calories" fromEpoch={this.props.fromEpoch} toEpoch={this.props.toEpoch} duration={this.props.duration} type='bar'/>
+          <ActivityChart metric="active_calories" title="Active Calories" fromEpoch={this.props.fromEpoch} toEpoch={this.props.toEpoch} duration={this.props.duration} type='bar'/>
         </Grid>
         <Grid item>
-          <ActivityChart metric="steps" fromEpoch={this.props.fromEpoch} toEpoch={this.props.toEpoch} duration={this.props.duration} type='bar'/>
+          <ActivityChart metric="steps" title="Steps" fromEpoch={this.props.fromEpoch} toEpoch={this.props.toEpoch} duration={this.props.duration} type='bar'/>
         </Grid>
         <Grid item>
-          <ActivityChart metric="heart_rate" fromEpoch={this.props.fromEpoch} toEpoch={this.props.toEpoch} duration={this.props.duration} type='line' operator={['mean','max','min']}/>
+          <ActivityChart metric="heart_rate" title="Heart Rate (Max, Mean, Min)" fromEpoch={this.props.fromEpoch} toEpoch={this.props.toEpoch} duration={this.props.duration} type='line' operator={['mean','max','min']}/>
         </Grid>
       </Grid>
       );

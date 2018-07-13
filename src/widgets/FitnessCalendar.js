@@ -12,12 +12,10 @@ class FitnessCalendar extends React.Component{
 
     constructor(prop){
         super(prop)
-
         this.state = {
             dayEpoch: 0
         }
         this.InfluxDB = new InfluxDBHandler();
-    
     }
 
     dayHandler = (date) => {
@@ -38,7 +36,9 @@ class FitnessCalendar extends React.Component{
        return(
         <div className="calendar">
             <Calendar onClickDay={this.dayHandler}/>
-            {chartsView}
+            <div className="calendar__charts">
+                {chartsView}
+            </div>
         </div>
          )
   }
