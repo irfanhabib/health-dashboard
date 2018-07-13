@@ -42,9 +42,9 @@ function SimpleCard(props) {
           <Typography variant="headline" component="h2">
             <MetricValue metricName="Exercise Calories" decimal={false} metricValue={props.totalCalories}/>
           </Typography>
-          <Typography variant="headline" component="h2">
+          {/* <Typography variant="headline" component="h2">
            <MetricValue metricName="Weight" metricValue={props.weight}/>
-          </Typography>
+          </Typography> */}
         </CardContent>
       </Card>
     </div>
