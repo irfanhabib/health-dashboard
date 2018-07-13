@@ -1,13 +1,12 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid'
-import FitnessCalendar from './FitnessCalendar'
 import './EpochView.css';
+
+import Grid from '@material-ui/core/Grid';
+import React from 'react';
+
+import FitnessCalendar from './FitnessCalendar';
 
 class EpochView extends React.Component{
 
-    constructor(props){
-        super(props)
-    }
     render(){
        return (
         <div className="epoch-view">

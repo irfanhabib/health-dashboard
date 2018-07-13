@@ -1,23 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MdFitnessCenter from 'react-icons/lib/md/fitness-center';
 import FaCalendar from 'react-icons/lib/fa/calendar';
-import NavLink from 'react-router-dom/NavLink';
-import EpochView from './EpochView';
-import Header from './Header';
 import withRouter from 'react-router-dom/withRouter';
 const drawerWidth = 240;
 

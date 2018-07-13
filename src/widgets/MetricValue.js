@@ -1,6 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import './MetricValue.css';
+
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class MetricValue extends React.Component{
     constructor(props){
@@ -16,7 +17,7 @@ class MetricValue extends React.Component{
             return value;
         } else {
             if (typeof value === 'string'){
-                return parseInt(value).toFixed(0);
+                return parseInt(value, 10).toFixed(0);
             }
             return value.toFixed(0);
         }

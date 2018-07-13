@@ -1,13 +1,12 @@
+import './FitnessCalendar.css';
+
 import React from 'react';
 import Calendar from 'react-calendar';
-import './FitnessCalendar.css'
-import Link from 'react-router-dom/Link'
-import MdLink from 'react-icons/lib/md/link';
-import { InfluxDBHandler } from '../db/influx';
 import withRouter from 'react-router-dom/withRouter';
+
+import { InfluxDBHandler } from '../db/influx';
 import ActivityCharts from './ActivityCharts';
-import {Route} from 'react-router-dom'
-import ActivityChartsView from './ActivtyChartsView';
+
 class FitnessCalendar extends React.Component{
 
     constructor(prop){

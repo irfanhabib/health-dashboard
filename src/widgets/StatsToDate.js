@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-    InfluxDBHandler
-} from '../db/influx';
-import axios from 'axios';
-import {
-    Card
-} from '@material-ui/core/Card';
-import SimpleCard from './SimpleCard'
+
+import { InfluxDBHandler } from '../db/influx';
+import SimpleCard from './SimpleCard';
+
 class StatsToDate extends React.Component {
 
     constructor(props) {

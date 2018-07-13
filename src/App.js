@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
 import './App.css';
-import ActivityChart from './charts/ActivityChart';
-import {Route, BrowserRouter as Router} from 'react-router-dom'
-import EpochView from './widgets/EpochView'
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from './widgets/AppBar'
-import Header from './widgets/Header'
-import AppDrawer from './widgets/AppDrawer'
 import createRouterHistory from 'history/createBrowserHistory';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import AppBar from './widgets/AppBar';
+import AppDrawer from './widgets/AppDrawer';
+import EpochView from './widgets/EpochView';
+import Header from './widgets/Header';
 
 const history = createRouterHistory();
 class App extends Component {
   
-  getEpochFromNow = () => ((new Date).getTime()) - ((365 * 3600 * 24) * 1000) 
-
-  constructor(props){
-    super(props);
-  }
+  getEpochFromNow = () => ((new Date()).getTime()) - ((365 * 3600 * 24) * 1000) 
 
   render() {
     return (

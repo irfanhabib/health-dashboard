@@ -1,13 +1,10 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid'
-import ActivityChart from '../charts/ActivityChart';
+import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import ActivityChart from '../charts/ActivityChart';
 
 class ActivityCharts extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
 
     render(){
     return (
