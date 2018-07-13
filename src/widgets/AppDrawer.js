@@ -65,7 +65,7 @@ class AppDrawer extends React.Component {
   };
 
   gotoOverview = () => {
-    this.props.history.push('/')
+    this.props.history.push('/summary')
   }
 
   gotoEpochView = () => {

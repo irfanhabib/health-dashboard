@@ -7,8 +7,6 @@ class EpochView extends React.Component{
 
     constructor(props){
         super(props)
-
-        console.log(this.state)
     }
     render(){
        return (
@@ -19,6 +17,7 @@ class EpochView extends React.Component{
               <FitnessCalendar/>
             </Grid>
             <Grid item xs={12}>
+
             </Grid>
           </Grid>
         </Grid>

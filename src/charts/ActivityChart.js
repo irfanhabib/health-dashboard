@@ -2,6 +2,28 @@ import React, {Component} from 'react';
 import { XAxis, LineChart, Bar, YAxis, Legend, BarChart, CartesianGrid, Line, Tooltip } from 'recharts';
 import { InfluxDBHandler } from '../db/influx';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader';
+
+const styles = {
+  card: {
+    minWidth: 275,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+};
 
 class ActivityChart extends Component {
   constructor(props){
@@ -13,13 +35,12 @@ class ActivityChart extends Component {
     this.renderBarChart = this.renderBarChart.bind(this);
 
     const InfluxDB = new InfluxDBHandler();
-    InfluxDB.fetchData(this.props.metric, this.props.epoch, this.props.duration, this.props.operator ? this.props.operator : 'sum').then(d => {
+    InfluxDB.fetchData(this.props.metric, this.props.fromEpoch, this.props.toEpoch, this.props.duration, this.props.operator ? this.props.operator : 'sum').then(d => {
       this.setState(
         {
           data: d.map(e => {
             let obj = {}
-            let date = new Date(e.time);
-            obj['Date'] = `${date.getDate()}/${date.getMonth()}`;
+            obj['Date'] = this.getDate(e, this.props.duration);
             if (Array.isArray(e.value)){
                 obj[this.props.metric] = e.value[0]
                 obj['Max'] = e.value[1]
@@ -35,16 +56,37 @@ class ActivityChart extends Component {
 
   }
 
+  getDate(epoch, duration) {
+    let date = new Date(epoch.time);
+    if (duration === '1d') {
+      return `${date.getDate()}/${date.getMonth() + 1}`;
+    } else if (duration === '1h') {
+      return `${date.getHours()}`;
+    }
+  }
+
   render() {
+    const { classes } = this.props;
+
+    let chart = '';
     if (this.props.type === 'bar'){
-      return this.renderBarChart();
+      chart = this.renderBarChart();
     } else if (this.props.type === 'line'){
       if (!Array.isArray(this.props.operator)){
-        return this.renderLineChart();
+        chart = this.renderLineChart();
       } else {
-        return this.renderLineChart(true);
+        chart = this.renderLineChart(true);
        }
     }
+
+    return (
+      <Card className={classes.card}>
+        <CardHeader title="Chart"/>
+        <CardContent>
+          {chart}
+        </CardContent>
+      </Card>
+    )
   }
 
   renderLineChart(addMinMax) {
@@ -95,9 +137,9 @@ class ActivityChart extends Component {
 
 ActivityChart.propTypes = {
   metric: PropTypes.string.isRequired,
-  epoch: PropTypes.number.isRequired,
+  fromEpoch: PropTypes.number.isRequired,
+  toEpoch: PropTypes.number.isRequired,
   duration: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  operator: PropTypes.string
 }
-export default ActivityChart;
+export default withStyles(styles)(ActivityChart);

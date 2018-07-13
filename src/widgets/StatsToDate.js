@@ -1,11 +1,15 @@
 import React from 'react';
-import { InfluxDBHandler } from '../db/influx';
+import {
+    InfluxDBHandler
+} from '../db/influx';
 import axios from 'axios';
-import {Card} from '@material-ui/core/Card';
+import {
+    Card
+} from '@material-ui/core/Card';
 import SimpleCard from './SimpleCard'
-class StatsToDate extends React.Component{
+class StatsToDate extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -14,37 +18,44 @@ class StatsToDate extends React.Component{
             TotalWeightLoss: 0
         }
 
-        console.log(this.props)
         const InfluxDB = new InfluxDBHandler();
 
         // Fetch Steps Data
-        InfluxDB.fetchData('steps', this.props.epoch, '1d').then(d => {
+        InfluxDB.fetchData('steps', this.props.epoch, null, '1d').then(d => {
             this.setState({
-            ...this.state,
-            totalSteps: d.reduce((a,v) => a += v.value, 0).toFixed(2)
-        })});
+                ...this.state,
+                totalSteps: d.reduce((a, v) => a += v.value, 0).toFixed(2)
+            })
+        });
 
         // Fetch Weight Data
-        InfluxDB.fetchData('weight', this.props.epoch, '1d').then(d => this.setState({
+        InfluxDB.fetchData('weight', this.props.epoch, null, '1d').then(d => this.setState({
             ...this.state,
-            TotalWeightLoss: d.reduce((a,v) => a += v.value, 0).toFixed(2)
+            TotalWeightLoss: d.reduce((a, v) => a += v.value, 0).toFixed(2)
         }));
 
         // Fetch Calolries Data
-        InfluxDB.fetchData('active_calories', this.props.epoch, '1d').then(d => this.setState({
+        InfluxDB.fetchData('active_calories', this.props.epoch, null, '1d').then(d => this.setState({
             ...this.state,
-            totalCalories: d.reduce((a,v) => a += v.value, 0).toFixed(2)
+            totalCalories: d.reduce((a, v) => a += v.value, 0).toFixed(2)
         }));
 
     }
-    render(){
-        return (
-            <SimpleCard 
-                steps={this.state.totalSteps} 
-                totalCalories={this.state.totalCalories}
-                weight={this.state.weight}
-                title={this.props.title}
-                />
+    render() {
+        return ( <
+            SimpleCard steps = {
+                this.state.totalSteps
+            }
+            totalCalories = {
+                this.state.totalCalories
+            }
+            weight = {
+                this.state.weight
+            }
+            title = {
+                this.props.title
+            }
+            />
         );
     }
 }

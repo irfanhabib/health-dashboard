@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import StatsToDate from './StatsToDate';
 import './Header.css';
 import { getEpochs } from '../utils/Helper';
-import ActivityChart from '../charts/ActivityChart';
+import ActivityCharts from './ActivityCharts';
 class Header extends React.Component {
     constructor(props) {
         super(props)
@@ -11,7 +11,8 @@ class Header extends React.Component {
         const epochs = getEpochs();
         this.state = {
           startOfYearEpoch: epochs.startOfYear,
-          startOfMonthEpoch:  epochs.startOfMonth
+          startOfMonthEpoch:  epochs.startOfMonth,
+          endOfMonthEpoch: epochs.endOfMonth
         }
     }
 
@@ -25,27 +26,17 @@ class Header extends React.Component {
                   <Grid item>
                     <StatsToDate title="Historic Data" epoch={0}/>
                   </Grid>
-                  <Grid item>
+                   <Grid item>
                     <StatsToDate title="Year to Date" epoch={this.state.startOfYearEpoch}/>
                   </Grid>
                   <Grid item>
-                    <StatsToDate title="Month to Date" epoch={this.state.startOfMonthEpoch}/>
+                    <StatsToDate title="Month to Date" epoch={this.state.startOfMonthEpoch} duration='1d'/>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12}>
               <p>Acitivty Over Past Month</p>
-                <Grid container className="HederContainer" justify="center" spacing={32}>
-                  <Grid item>
-                    <ActivityChart metric="active_calories"epoch={this.state.startOfMonthEpoch} duration='1d' type='bar'/>
-                  </Grid>
-                  <Grid item>
-                    <ActivityChart metric="steps"epoch={this.state.startOfMonthEpoch} duration='1d' type='bar'/>
-                  </Grid>
-                  <Grid item>
-                    <ActivityChart metric="heart_rate"epoch={this.state.startOfMonthEpoch} duration='1d' type='line' operator={['mean','max','min']}/>
-                  </Grid>
-                </Grid>
+              <ActivityCharts fromEpoch={this.state.startOfMonthEpoch} toEpoch={this.state.endOfMonthEpoch} duration='1d'/>
               </Grid>
             </Grid>
           </div>

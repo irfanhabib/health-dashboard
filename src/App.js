@@ -26,7 +26,7 @@ class App extends Component {
       <Router history={history}>
         <div className="app__body">
         <AppDrawer/>
-          <Route path="/" exact={true} component={Header}/>
+          <Route path="/summary" exact={true} component={Header}/>
           <Route path="/data" exact={true} component={EpochView}/>
         </div>
       </Router>
